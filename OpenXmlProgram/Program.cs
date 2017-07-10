@@ -1,6 +1,8 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -26,6 +28,14 @@ namespace OpenXmlProgram
             // Find application directory.
             var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
+            // Initiate mustach-sharp compiler.
+            var compiler = new FormatCompiler();
+            compiler.RegisterTag(new IsGreaterThanTagDefinition(), true);
+            compiler.RegisterTag(new IsSmallerThanTagDefinition(), true);
+            compiler.RegisterTag(new LookupTagDefinition(), true);
+            compiler.RegisterTag(new LoopTagDefinition(), true);
+
+#if !USING_TXT
             // Path to which file should be exported.
             var output = Path.Combine(path, $"{DateTime.Now.ToString("yy-MM-dd HH-mm-ss")}.xls");
             var input = Path.Combine(path, "Files/bkt-10.xml");
@@ -38,15 +48,34 @@ namespace OpenXmlProgram
             // Deserialize text.
             var result = JsonConvert.DeserializeObject<BktTenReportViewModel>(szText);
 
-            var compiler = new FormatCompiler();
-            compiler.RegisterTag(new IsGreaterThanTagDefinition(), true);
-            compiler.RegisterTag(new IsSmallerThanTagDefinition(), true);
-            compiler.RegisterTag(new FindItemInArrayTagDefinition(), true);
+            
 
             var generator = compiler.Compile(szInput);
             var szXls = generator.Render(result);
 
             File.WriteAllText(output, szXls, Encoding.UTF8);
+            Process.Start(output);
+#endif
+
+#if USING_TXT
+            // Path to which file should be exported.
+            var output = Path.Combine(path, $"bkt-10-{DateTime.Now.ToString("yy-MM-dd HH-mm-ss")}.txt");
+            var input = Path.Combine(path, "Files/bkt-10.txt");
+
+            // Template file.
+            var szWindPath = Path.Combine(path, "Data/bkt-10.json");
+            var szText = File.ReadAllText(szWindPath);
+            var szInput = File.ReadAllText(input);
+
+            // Deserialize text.
+            var result = JsonConvert.DeserializeObject<BktTenReportViewModel>(szText);
+            
+            var generator = compiler.Compile(szInput);
+            var szXls = generator.Render(result);
+
+            File.WriteAllText(output, szXls, Encoding.UTF8);
+            Process.Start(output);
+#endif
         }
 
         protected static void AddPartXml(OpenXmlPart part, string xml)

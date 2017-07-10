@@ -1,0 +1,10 @@
+﻿{{#each Details}}
+{{#Loop 1 15}}
+	{{#Lookup Reports @index}}
+	{{#if this}}
+	{{Direction}} - Element index: {{@index}}
+	{{/if}}
+	{{#newline}}
+	{{/Lookup}}
+{{/Loop}}
+{{/each}}

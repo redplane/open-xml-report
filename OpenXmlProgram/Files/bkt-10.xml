@@ -3659,7 +3659,7 @@
         <Cell ss:MergeAcross="1" ss:StyleID="m1386904495432">
           <Data ss:Type="Number">12</Data>
         </Cell>
-        <Cell ss:MergeAcross="1" ss:StyleID="m1386904491640">
+        <Cell ss:MergeAcross="1" ss:StyleID="m1386904495432">
           <Data ss:Type="Number">13</Data>
         </Cell>
         <Cell ss:MergeAcross="1" ss:StyleID="m1386904491700">
@@ -3762,18 +3762,25 @@
           <Data ss:Type="String">{{Time.Day}}</Data>
         </Cell>
 
-        {{#each Reports}}
-        {{#IsSmallerThan @index 14}}
+        {{#Loop 0 13}}
+        {{#Lookup Reports @pointer}}
+        {{#if this}}
         <Cell ss:StyleID="s20">
-          {{#FindItemInArray Reports 0}}
           <Data ss:Type="String">{{Direction}}</Data>
-          {{/FindItemInArray}}
         </Cell>
         <Cell ss:StyleID="s20">
           <Data ss:Type="String">{{Speed}}</Data>
         </Cell>
-        {{/IsSmallerThan}}
-        {{/each}}
+        {{#else}}
+        <Cell ss:StyleID="s20">
+          <Data ss:Type="String">-</Data>
+        </Cell>
+        <Cell ss:StyleID="s20">
+          <Data ss:Type="String">-</Data>
+        </Cell>
+        {{/if}}
+        {{/Lookup}}
+        {{/Loop}}
       </Row>
       {{/each}}
     </Table>
