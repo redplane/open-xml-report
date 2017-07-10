@@ -30,8 +30,7 @@ namespace OpenXmlProgram
 
             // Initiate mustach-sharp compiler.
             var compiler = new FormatCompiler();
-            compiler.RegisterTag(new IsGreaterThanTagDefinition(), true);
-            compiler.RegisterTag(new IsSmallerThanTagDefinition(), true);
+            compiler.RegisterTag(new NumericCompareTagDefinition(), true);
             compiler.RegisterTag(new LookupTagDefinition(), true);
             compiler.RegisterTag(new LoopTagDefinition(), true);
 
@@ -47,8 +46,22 @@ namespace OpenXmlProgram
 
             // Deserialize text.
             var result = JsonConvert.DeserializeObject<BktTenReportViewModel>(szText);
+            foreach (var detail in result.Details)
+            {
+                if (detail.Reports.Count > 22)
+                    continue;
 
-            
+                // Initiate new reports list.
+                var reports = new Wind[24];
+
+                for (var iReportIndex = 0; iReportIndex < detail.Reports.Count; iReportIndex++)
+                {
+                    var report = detail.Reports[iReportIndex];
+                    reports[report.DateTime.Hour] = report;
+                }
+
+                detail.Reports = reports;
+            }
 
             var generator = compiler.Compile(szInput);
             var szXls = generator.Render(result);
@@ -170,7 +183,7 @@ namespace OpenXmlProgram
             //return JsonConvert.DeserializeObject<BktFourteenReportViewModel>(text);
             return null;
         }
-        
+
 
         /// <summary>
         ///     Find cell at a specific position.
@@ -198,7 +211,7 @@ namespace OpenXmlProgram
             }
             else
             {
-                row = new Row {RowIndex = rowIndex};
+                row = new Row { RowIndex = rowIndex };
                 sheetData.Append(row);
             }
             if (row.Elements<Cell>().Any(c => c.CellReference.Value == columnName + rowIndex))
@@ -212,7 +225,7 @@ namespace OpenXmlProgram
                     refCell = cell;
                     break;
                 }
-            var newCell = new Cell {CellReference = cellReference};
+            var newCell = new Cell { CellReference = cellReference };
             row.InsertBefore(newCell, refCell);
             worksheet.Save();
             return newCell;

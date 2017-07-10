@@ -11,10 +11,13 @@ namespace OpenXmlProgram.Models.TagDefinitions
         #region Properties
 
         private const string StartIndexParameter = "start";
-        private static readonly TagParameter StartIndex = new TagParameter(StartIndexParameter) {IsRequired = true};
+        private static readonly TagParameter StartIndex = new TagParameter(StartIndexParameter) { IsRequired = true };
 
         private const string EndIndexParameter = "end";
         private static readonly TagParameter EndIndex = new TagParameter(EndIndexParameter) { IsRequired = true };
+
+        private const string OperatorParameter = "operator";
+        private static readonly TagParameter Operator = new TagParameter(OperatorParameter) { IsRequired = true };
 
         #endregion
 
@@ -46,7 +49,7 @@ namespace OpenXmlProgram.Models.TagDefinitions
         /// <returns>The parameters.</returns>
         protected override IEnumerable<TagParameter> GetParameters()
         {
-            return new[] {StartIndex, EndIndex};
+            return new[] { StartIndex, Operator, EndIndex };
         }
 
         /// <summary>
@@ -65,13 +68,27 @@ namespace OpenXmlProgram.Models.TagDefinitions
         {
             var oStartIndex = arguments[StartIndexParameter];
             var oEndIndex = arguments[EndIndexParameter];
+            var oOperator = arguments[OperatorParameter];
 
             var iStartIndex = Convert.ToInt32(oStartIndex);
             var iEndIndex = Convert.ToInt32(oEndIndex);
+            var szOperator = Convert.ToString(oOperator);
 
             var index = iStartIndex;
-            for (; index <= iEndIndex; index++)
+            for (; ; index++)
             {
+                if ("lower-equal".Equals(szOperator, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (!(index <= iEndIndex))
+                        break;
+                }
+
+                if ("lower-than".Equals(szOperator, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (!(index < iEndIndex))
+                        break;
+                }
+                
                 var output = new
                 {
                     pointer = index
@@ -85,14 +102,14 @@ namespace OpenXmlProgram.Models.TagDefinitions
                 yield return childContext;
             }
         }
-        
+
         /// <summary>
         ///     Gets the parameters that are used to create a new child context.
         /// </summary>
         /// <returns>The parameters that are used to create a new child context.</returns>
         public override IEnumerable<TagParameter> GetChildContextParameters()
         {
-            return new[] {StartIndex, EndIndex};
+            return new[] { StartIndex, Operator, EndIndex };
         }
 
         #endregion

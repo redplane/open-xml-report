@@ -65,8 +65,7 @@
     <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Models\Station.cs" />
     <Compile Include="Models\TagDefinitions\LookupTagDefinition.cs" />
-    <Compile Include="Models\TagDefinitions\IsSmallerThanTagDefinition.cs" />
-    <Compile Include="Models\TagDefinitions\IsGreaterThanTagDefinition.cs" />
+    <Compile Include="Models\TagDefinitions\NumericCompareTagDefinition.cs" />
     <Compile Include="Models\TagDefinitions\LoopTagDefinition.cs" />
     <Compile Include="Models\Wind.cs" />
     <Compile Include="Program.cs" />
