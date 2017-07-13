@@ -487,155 +487,22 @@
       </Row>
       
       <Row ss:Height="18.95">
+
+        {{#each this}}
+        {{#NumericCompare @index 'equal' 0}}
         <Cell ss:Index="3" ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
+          <Data ss:Type="Number">{{RainObs}}</Data>
         </Cell>
+        {{/NumericCompare}}
+        {{#NumericCompare @index 'different' 0}}
         <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
+          <Data ss:Type="Number">{{RainObs}}</Data>
         </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">-</Data>
-        </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
+        {{/NumericCompare}}
+        {{/each}}
+
         <Cell ss:StyleID="S59" ss:Formula="=SUMIF(RC[-24]:RC[-1],&quot;&lt;&gt;-999&quot;,RC[-24]:RC[-1])">
           <Data ss:Type="Number">0</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
-        </Cell>
-        <Cell ss:Formula="=MOD(ROW(RC[-25]),2)">
-          <Data ss:Type="Number">1</Data>
         </Cell>
       </Row>
       {{/each}}
