@@ -126,12 +126,12 @@
       </Row>
       <Row ss:Index="2" ss:Height="18.75">
         <Cell ss:Index="2" ss:MergeAcross="31" ss:MergeDown="0" ss:StyleID="S65">
-          <Data ss:Type="String">Mã trạm:…..                                                                              Tháng…. Năm……</Data>
+          <Data ss:Type="String">Mã trạm: {{Station.Id}}                                                                              Tháng: {{Time.Month}} Năm: {{Time.Year}}</Data>
         </Cell>
       </Row>
       <Row ss:Index="3" ss:Height="18.75">
         <Cell ss:Index="2" ss:MergeAcross="13" ss:MergeDown="0" ss:StyleID="S65">
-          <Data ss:Type="String">Tên trạm:……. </Data>
+          <Data ss:Type="String">Tên trạm: {{Station.Name}} </Data>
         </Cell>
         <Cell ss:Index="16" ss:StyleID="S61" />
         <Cell ss:StyleID="S61" />
