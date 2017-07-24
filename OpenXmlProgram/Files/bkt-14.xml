@@ -473,7 +473,9 @@
       <Row ss:Height="18.95">
         
         <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="S67">
-          <Data ss:Type="String">This is day</Data>
+          {{#Lookup this 0}}
+          <Data ss:Type="String">{{Time.Day}}</Data>
+          {{/Lookup}}
         </Cell>
         
         {{#each this}}
