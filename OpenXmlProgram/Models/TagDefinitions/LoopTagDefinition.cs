@@ -19,6 +19,8 @@ namespace OpenXmlProgram.Models.TagDefinitions
         private const string OperatorParameter = "operator";
         private static readonly TagParameter Operator = new TagParameter(OperatorParameter) { IsRequired = true };
 
+        private const string IncreasementParameter = "increasement";
+        private static readonly TagParameter Increasement = new TagParameter(IncreasementParameter) {IsRequired = false};
         #endregion
 
         #region Constructor
@@ -49,7 +51,7 @@ namespace OpenXmlProgram.Models.TagDefinitions
         /// <returns>The parameters.</returns>
         protected override IEnumerable<TagParameter> GetParameters()
         {
-            return new[] { StartIndex, Operator, EndIndex };
+            return new[] { StartIndex, Operator, EndIndex, Increasement };
         }
 
         /// <summary>
@@ -69,13 +71,22 @@ namespace OpenXmlProgram.Models.TagDefinitions
             var oStartIndex = arguments[StartIndexParameter];
             var oEndIndex = arguments[EndIndexParameter];
             var oOperator = arguments[OperatorParameter];
+            
 
             var iStartIndex = Convert.ToInt32(oStartIndex);
             var iEndIndex = Convert.ToInt32(oEndIndex);
             var szOperator = Convert.ToString(oOperator);
 
+            // Increasement detect.
+            var increasement = 1;
+            if (arguments.ContainsKey(IncreasementParameter))
+            {
+                var oIncreasement = arguments[IncreasementParameter];
+                increasement = Convert.ToInt32(oIncreasement);
+            }
+
             var index = iStartIndex;
-            for (; ; index++)
+            for (; ; index+= increasement)
             {
                 if ("lower-equal".Equals(szOperator, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -86,6 +97,18 @@ namespace OpenXmlProgram.Models.TagDefinitions
                 if ("lower-than".Equals(szOperator, StringComparison.InvariantCultureIgnoreCase))
                 {
                     if (!(index < iEndIndex))
+                        break;
+                }
+
+                if ("greater-than".Equals(szOperator, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (!(index > iEndIndex))
+                        break;
+                }
+
+                if ("greater-equal".Equals(szOperator, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (!(index >= iEndIndex))
                         break;
                 }
                 

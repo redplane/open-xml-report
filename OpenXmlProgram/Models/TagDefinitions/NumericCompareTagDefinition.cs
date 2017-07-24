@@ -65,12 +65,7 @@ namespace OpenXmlProgram.Models.TagDefinitions
             var dSource = Convert.ToDouble(source);
             var dTarget = Convert.ToDouble(target);
             var szOperator = Convert.ToString(oOperator);
-
-            if (dSource == 11)
-            {
-                var a = 1;
-            }
-                
+            
 
             if ("lower-than".Equals(szOperator, StringComparison.InvariantCultureIgnoreCase))
                 return dSource < dTarget;
@@ -80,7 +75,7 @@ namespace OpenXmlProgram.Models.TagDefinitions
                 return dSource.Equals(dTarget);
             if ("greater-equal".Equals(szOperator, StringComparison.InvariantCultureIgnoreCase))
                 return dSource >= dTarget;
-            if ("greater".Equals(szOperator, StringComparison.InvariantCultureIgnoreCase))
+            if ("greater-than".Equals(szOperator, StringComparison.InvariantCultureIgnoreCase))
                 return dSource > dTarget;
             if ("different".Equals(szOperator, StringComparison.InvariantCultureIgnoreCase))
                 return !dSource.Equals(dTarget);
