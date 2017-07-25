@@ -21,6 +21,22 @@
       <ss:Font ss:Color="#000000" ss:FontName="Calibri" ss:Size="11" />
       <ss:Protection ss:Protected="1" x:HideFormula="0" />
     </Style>
+    <Style ss:ID="s57">
+      <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+      <Borders>
+        <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+                ss:Color="#000000"/>
+        <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+                ss:Color="#000000"/>
+        <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+                ss:Color="#000000"/>
+        <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+                ss:Color="#000000"/>
+      </Borders>
+      <Font ss:FontName="Times New Roman" ss:Color="#000000"/>
+      <Interior/>
+      <Protection/>
+    </Style>
     <Style ss:ID="S59">
       <ss:Alignment ss:Horizontal="Center" ss:Vertical="Center" />
       <ss:Borders>
@@ -501,7 +517,7 @@
           <Data ss:Type="Number">{{RainObs}}</Data>
         </Cell>
         {{/NumericCompare}}
-        
+
         {{#NumericCompare @index 'different' 0}}
         <Cell ss:StyleID="S59">
           <Data ss:Type="Number">{{RainObs}}</Data>
@@ -511,6 +527,10 @@
 
         <Cell ss:StyleID="S59" ss:Formula="=SUMIF(RC[-24]:RC[-1],&quot;&lt;&gt;-999&quot;,RC[-24]:RC[-1])">
           <Data ss:Type="Number">0</Data>
+        </Cell>
+        
+        <Cell ss:StyleID="S59">
+          <Data ss:Type="String">Obs</Data>
         </Cell>
 
       </Row>
@@ -943,18 +963,22 @@
         <Cell ss:StyleID="S59" ss:Formula="=SUMIF(RC[-24]:RC[-1],&quot;&lt;&gt;-999&quot;,RC[-24]:RC[-1])">
           <Data ss:Type="Number">0</Data>
         </Cell>
+
+        <Cell ss:StyleID="S59">
+          <Data ss:Type="String">Obs</Data>
+        </Cell>
       </Row>
       {{/NumericCompare}}
       {{/each}}
 
       <Row ss:AutoFitHeight="0" ss:Height="23.0625">
-        <Cell>
-          <Data ss:Type="String">Tổng số</Data>
+        <Cell ss:MergeDown="1">
+          <Data ss:Type="String" >Tổng số</Data>
         </Cell>
-        <Cell>
+        <Cell ss:StyleID="s57">
           <Data ss:Type="String">mm</Data>
         </Cell>
-        
+
         {{#Loop 25 'greater-equal' 1 -1}}
         <Cell ss:Formula="=SUMIF('Trang 3'!R[-32]C[{{@pointer}}]:R[-1]C[{{@pointer}}],&quot;Rain&quot;,R[-32]C:R[-1]C)+SUMIF('Trang 2'!R[-32]C[{{@pointer}}]:R[-3]C[{{@pointer}}], &quot;Rain&quot;, 'Trang 2'!R[-32]C:R[-3]C)">
           <Data ss:Type="Number">0</Data>
@@ -962,6 +986,19 @@
         {{/Loop}}
       </Row>
 
+      <Row ss:AutoFitHeight="0" ss:Height="23.0625">
+        
+        <Cell ss:Index="2" ss:StyleID="s57">
+          <Data ss:Type="String">phút</Data>
+        </Cell>
+
+        {{#Loop 25 'greater-equal' 1 -1}}
+        <Cell ss:Formula="=SUMIF('Trang 3'!R[-33]C[{{@pointer}}]:R[-2]C[{{@pointer}}],&quot;Obs&quot;,R[-33]C:R[-2]C)+SUMIF('Trang 2'!R[-33]C[{{@pointer}}]:R[-4]C[{{@pointer}}], &quot;Obs&quot;, 'Trang 2'!R[-33]C:R[-4]C)">
+          <Data ss:Type="Number">0</Data>
+        </Cell>
+        {{/Loop}}
+      </Row>
+        
     </ss:Table>
     <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
       <PageSetup>
