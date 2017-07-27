@@ -2,7 +2,7 @@
 <?mso-application progid="Excel.Sheet"?>
 <Workbook xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:x2="urn:schemas-microsoft-com:office:excel2" xmlns:html="http://www.w3.org/TR/REC-html40" xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
   <x:ExcelWorkbook>
-    <x:ActiveSheet>1</x:ActiveSheet>
+    <x:ActiveSheet>0</x:ActiveSheet>
   </x:ExcelWorkbook>
   <o:DocumentProperties>
     <o:Title>Datalogger BKT14</o:Title>
@@ -502,10 +502,10 @@
       </Row>
 
       <!--Rain-->
-      {{#each Reports}}
-      {{#NumericCompare @index 'lower-than' 15}}
+      {{#Loop 0 'lower-than' 15 1}}
+      {{#Lookup Reports @pointer}}
+      {{#if this}}
       <Row ss:Height="18.95">
-
         <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="S67">
           {{#Lookup this 0}}
           <Data ss:Type="String">{{Time.Day}}</Data>
@@ -548,10 +548,39 @@
         <Cell ss:StyleID="S59">
           <Data ss:Type="String">Obs</Data>
         </Cell>
-
       </Row>
-      {{/NumericCompare}}
-      {{/each}}
+      {{#else}}
+      <Row ss:Height="18.95">
+        <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="S67">
+          <Data ss:Type="String">-</Data>
+        </Cell>
+
+        {{#Loop 0 'lower-than' 25 1}}
+        <Cell ss:StyleID="S59">
+          <Data ss:Type="String">-</Data>
+        </Cell>
+        {{/Loop}}
+      </Row>
+
+      <Row ss:Height="18.95">
+
+        {{#Loop 0 'lower-than' 25 1}}
+        {{#NumericCompare @pointer 'equal' 0}}
+        <Cell ss:Index="3" ss:StyleID="S59">
+          <Data ss:Type="String">-</Data>
+        </Cell>
+        {{/NumericCompare}}
+
+        {{#NumericCompare @pointer 'different' 0}}
+        <Cell ss:StyleID="S59">
+          <Data ss:Type="String">-</Data>
+        </Cell>
+        {{/NumericCompare}}
+        {{/Loop}}
+      </Row>
+      {{/if}}
+      {{/Lookup}}
+      {{/Loop}}
     </ss:Table>
     <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
       <PageSetup>
@@ -938,8 +967,9 @@
       </Row>
 
       <!--Rain-->
-      {{#each Reports}}
-      {{#NumericCompare @index 'greater-than' 14}}
+      {{#Loop 15 'lower-than' 31 1}}
+      {{#Lookup Reports @pointer}}
+      {{#if this}}
       <Row ss:Height="18.95">
 
         <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="S67">
@@ -984,8 +1014,39 @@
           <Data ss:Type="String">Obs</Data>
         </Cell>
       </Row>
-      {{/NumericCompare}}
-      {{/each}}
+      {{#else}}
+      <Row ss:Height="18.95">
+
+        <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="S67">
+          <Data ss:Type="String">-</Data>
+        </Cell>
+
+        {{#Loop 0 'lower-than' 25 1}}
+        <Cell ss:StyleID="S59">
+          <Data ss:Type="String">-</Data>
+        </Cell>
+        {{/Loop}}
+      </Row>
+
+      <Row ss:Height="18.95">
+
+        {{#Loop 0 'lower-than' 25 1}}
+        {{#NumericCompare @pointer 'equal' 0}}
+        <Cell ss:Index="3" ss:StyleID="S59">
+          <Data ss:Type="String">-</Data>
+        </Cell>
+        {{/NumericCompare}}
+        {{#NumericCompare @pointer 'different' 0}}
+        <Cell ss:StyleID="S59">
+          <Data ss:Type="String">-</Data>
+        </Cell>
+        {{/NumericCompare}}
+        {{/Loop}}
+      </Row>
+
+      {{/if}}
+      {{/Lookup}}
+      {{/Loop}}
 
       <Row ss:AutoFitHeight="0" ss:Height="23.0625">
         <Cell ss:MergeDown="1" ss:StyleID="s63">
