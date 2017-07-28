@@ -3623,7 +3623,7 @@
         <Cell ss:Index="2" ss:StyleID="s16">
           <Data ss:Type="String">Giờ</Data>
         </Cell>
-        {{#Loop 1 'lower-equal' 24}}
+        {{#Loop 1 'lower-equal' 24 1}}
         <Cell ss:MergeAcross="1" ss:StyleID="m1386904496620">
           <Data ss:Type="Number">{{@pointer}}</Data>
         </Cell>
@@ -3634,7 +3634,7 @@
           <Data ss:Type="String">Ngày</Data>
         </Cell>
 
-        {{#Loop 1 'lower-equal' 24}}
+        {{#Loop 1 'lower-equal' 24 1}}
         <Cell ss:StyleID="s19">
           <Data ss:Type="String">dd</Data>
         </Cell>
@@ -3644,12 +3644,14 @@
         {{/Loop}}
       </Row>
 
-      {{#each Details}}
+      {{#Loop 0 'lower-than' 31 1}}
+      {{#Lookup Details @pointer}}
+      {{#if this}}
       <Row ss:AutoFitHeight="0" ss:Height="18">
         <Cell ss:Index="2" ss:StyleID="s17">
           <Data ss:Type="String">{{Time.Day}}</Data>
         </Cell>
-        {{#Loop 0 'lower-equal' 23}}
+        {{#Loop 0 'lower-equal' 23 1}}
         {{#Lookup Reports @pointer}}
         {{#if this}}
         <Cell ss:StyleID="s19">
@@ -3669,7 +3671,23 @@
         {{/Lookup}}
         {{/Loop}}
       </Row>
-      {{/each}}
+      {{#else}}
+      <Row ss:AutoFitHeight="0" ss:Height="18">
+        <Cell ss:Index="2" ss:StyleID="s17">
+          <Data ss:Type="String">-</Data>
+        </Cell>
+        {{#Loop 0 'lower-equal' 23 1}}
+        <Cell ss:StyleID="s19">
+          <Data ss:Type="String">-</Data>
+        </Cell>
+        <Cell ss:StyleID="s19">
+          <Data ss:Type="String">-</Data>
+        </Cell>
+        {{/Loop}}
+      </Row>
+      {{/if}}
+      {{/Lookup}}
+      {{/Loop}}
     </Table>
     <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
       <PageSetup>
