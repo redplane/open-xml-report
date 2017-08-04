@@ -121,6 +121,7 @@ namespace OpenXmlProgram
             var szXls = generator.Render(result);
 
             File.WriteAllText(output, szXls, Encoding.UTF8);
+            
             Process.Start(output);
         }
 

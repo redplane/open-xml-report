@@ -507,12 +507,10 @@
       {{#if this}}
       <Row ss:Height="18.95">
         <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="S67">
-          {{#Lookup this 0}}
           <Data ss:Type="String">{{Time.Day}}</Data>
-          {{/Lookup}}
         </Cell>
 
-        {{#each this}}
+        {{#each Hours}}
         <Cell ss:StyleID="S59">
           <Data ss:Type="Number">{{Rain}}</Data>
         </Cell>
@@ -520,14 +518,11 @@
         <Cell ss:StyleID="S59" ss:Formula="=SUMIF(RC[-24]:RC[-1],&quot;&lt;&gt;-999&quot;,RC[-24]:RC[-1])">
           <Data ss:Type="Number">0</Data>
         </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">Rain</Data>
-        </Cell>
       </Row>
 
       <Row ss:Height="18.95">
 
-        {{#each this}}
+        {{#each Hours}}
         {{#NumericCompare @index 'equal' 0}}
         <Cell ss:Index="3" ss:StyleID="S59">
           <Data ss:Type="Number">{{RainObs}}</Data>
@@ -973,12 +968,10 @@
       <Row ss:Height="18.95">
 
         <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="S67">
-          {{#Lookup this 0}}
           <Data ss:Type="String">{{Time.Day}}</Data>
-          {{/Lookup}}
         </Cell>
 
-        {{#each this}}
+        {{#each Hours}}
         <Cell ss:StyleID="S59">
           <Data ss:Type="Number">{{Rain}}</Data>
         </Cell>
@@ -986,14 +979,11 @@
         <Cell ss:StyleID="S59" ss:Formula="=SUMIF(RC[-24]:RC[-1],&quot;&lt;&gt;-999&quot;,RC[-24]:RC[-1])">
           <Data ss:Type="Number">0</Data>
         </Cell>
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">Rain</Data>
-        </Cell>
       </Row>
 
       <Row ss:Height="18.95">
 
-        {{#each this}}
+        {{#each Hours}}
         {{#NumericCompare @index 'equal' 0}}
         <Cell ss:Index="3" ss:StyleID="S59">
           <Data ss:Type="Number">{{RainObs}}</Data>
@@ -1008,10 +998,6 @@
 
         <Cell ss:StyleID="S59" ss:Formula="=SUMIF(RC[-24]:RC[-1],&quot;&lt;&gt;-999&quot;,RC[-24]:RC[-1])">
           <Data ss:Type="Number">0</Data>
-        </Cell>
-
-        <Cell ss:StyleID="S59">
-          <Data ss:Type="String">Obs</Data>
         </Cell>
       </Row>
       {{#else}}
@@ -1056,12 +1042,16 @@
           <Data ss:Type="String">mm</Data>
         </Cell>
 
-        {{#Loop 25 'greater-equal' 1 -1}}
-        <Cell ss:Formula="=SUMIF('Trang 3'!R[-32]C[{{@pointer}}]:R[-1]C[{{@pointer}}],&quot;Rain&quot;,R[-32]C:R[-1]C)+SUMIF('Trang 2'!R[-32]C[{{@pointer}}]:R[-3]C[{{@pointer}}], &quot;Rain&quot;, 'Trang 2'!R[-32]C:R[-3]C)"
-              ss:StyleID="s57">
+        {{#each TotalRains}}
+        <Cell ss:StyleID="s57">
+          <Data
+            ss:Type="Number">{{this}}</Data>
+        </Cell>
+        {{/each}}
+
+        <Cell ss:StyleID="s57" ss:Formula="=SUMIF(RC[-24]:RC[-1],&quot;&lt;&gt;-999&quot;,RC[-24]:RC[-1])">
           <Data ss:Type="Number">0</Data>
         </Cell>
-        {{/Loop}}
       </Row>
 
       <Row ss:AutoFitHeight="0" ss:Height="23.0625">
@@ -1070,12 +1060,14 @@
           <Data ss:Type="String">phút</Data>
         </Cell>
 
-        {{#Loop 25 'greater-equal' 1 -1}}
-        <Cell ss:Formula="=SUMIF('Trang 3'!R[-33]C[{{@pointer}}]:R[-2]C[{{@pointer}}],&quot;Obs&quot;,R[-33]C:R[-2]C)+SUMIF('Trang 2'!R[-33]C[{{@pointer}}]:R[-4]C[{{@pointer}}], &quot;Obs&quot;, 'Trang 2'!R[-33]C:R[-4]C)"
-              ss:StyleID="s57">
+        {{#each TotalObservations}}
+        <Cell ss:StyleID="s57">
+          <Data ss:Type="Number">{{this}}</Data>
+        </Cell>
+        {{/each}}
+        <Cell ss:StyleID="s57" ss:Formula="=SUMIF(RC[-24]:RC[-1],&quot;&lt;&gt;-999&quot;,RC[-24]:RC[-1])">
           <Data ss:Type="Number">0</Data>
         </Cell>
-        {{/Loop}}
       </Row>
 
     </ss:Table>
