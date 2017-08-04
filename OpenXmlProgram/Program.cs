@@ -34,8 +34,8 @@ namespace OpenXmlProgram
             compiler.RegisterTag(new LookupTagDefinition(), true);
             compiler.RegisterTag(new LoopTagDefinition(), true);
             
-            //ExportBktTen(path, compiler);
-            ExportBktFourteen(path, compiler);
+            ExportBktTen(path, compiler);
+            //ExportBktFourteen(path, compiler);
         }
 
         #region Methods
