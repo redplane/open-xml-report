@@ -16,6 +16,7 @@ using Mustache;
 using Newtonsoft.Json;
 using OpenXmlProgram.Models;
 using OpenXmlProgram.Models.TagDefinitions;
+using OpenXmlProgram.ViewModels.Report.BcThreeFiveSeven;
 using OpenXmlProgram.ViewModels.Report.BktFourteen;
 using OpenXmlProgram.ViewModels.Report.BktTen;
 
@@ -34,8 +35,9 @@ namespace OpenXmlProgram
             compiler.RegisterTag(new LookupTagDefinition(), true);
             compiler.RegisterTag(new LoopTagDefinition(), true);
             
-            ExportBktTen(path, compiler);
+            //ExportBktTen(path, compiler);
             //ExportBktFourteen(path, compiler);
+            ExportBcThreeFiveSeven(path, compiler);
         }
 
         #region Methods
@@ -117,6 +119,32 @@ namespace OpenXmlProgram
             //    detail.Reports = reports;
             //}
 
+            var generator = formatCompiler.Compile(szInput);
+            var szXls = generator.Render(result);
+
+            File.WriteAllText(output, szXls, Encoding.UTF8);
+            Process.Start(output);
+        }
+
+        /// <summary>
+        /// Export bkt-14 report.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="formatCompiler"></param>
+        private static void ExportBcThreeFiveSeven(string path, FormatCompiler formatCompiler)
+        {
+            // Path to which file should be exported.
+            var output = Path.Combine(path, $"{DateTime.Now.ToString("yy-MM-dd HH-mm-ss")}.xls");
+            var input = Path.Combine(path, "Files/bc-357.xml");
+
+            // Template file.
+            var szRainPath = Path.Combine(path, "Data/bc-357.json");
+            var szText = File.ReadAllText(szRainPath);
+            var szInput = File.ReadAllText(input);
+
+            // Deserialize text.
+            var result = JsonConvert.DeserializeObject<BcThreeFiveSevenReportViewModel>(szText);
+            
             var generator = formatCompiler.Compile(szInput);
             var szXls = generator.Render(result);
 
